@@ -12,26 +12,21 @@ import { CryptoData } from '@/types/crypto';
 import { useEffect } from 'react';
 
 export default function Home() {
-  // State for sorting and UI
   const [sortBy, setSortBy] = useState<string>('market_cap');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [mounted, setMounted] = useState(false);
   
-  // Theme management with next-themes
   const { resolvedTheme, setTheme } = useTheme();
   
-  // After hydration, we can show the UI
   useEffect(() => {
     setMounted(true);
   }, []);
   
-  // Toggle dark mode using next-themes
   const toggleDarkMode = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
   
-  // Fetch crypto data with React Query
   const { 
     data: cryptoData, 
     isLoading, 
@@ -39,7 +34,6 @@ export default function Home() {
     error 
   } = useCryptoData(sortBy, sortDirection);
   
-  // Search functionality
   const { 
     search, 
     searchResults, 
@@ -47,7 +41,6 @@ export default function Home() {
     searchError 
   } = useSearchCrypto();
   
-  // Handle search
   const handleSearch = (query: string) => {
     if (query.trim()) {
       search(query);
@@ -55,21 +48,17 @@ export default function Home() {
     }
   };
   
-  // Reset search
   const resetSearch = () => {
     setIsSearchMode(false);
   };
   
-  // Handle sort changes
   const handleSortChange = (newSortBy: string, direction: 'asc' | 'desc') => {
     setSortBy(newSortBy);
     setSortDirection(direction);
   };
   
-  // Determine which data to display
   const displayData: CryptoData[] = isSearchMode ? searchResults : cryptoData;
   
-  // Don't render toggle until mounted to avoid hydration mismatch
   if (!mounted) {
     return (
       <div className="min-h-screen py-10 px-4 sm:px-6 bg-gray-50">

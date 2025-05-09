@@ -19,7 +19,6 @@
     scroll-behavior: smooth;
   }
   
-  /* Add smooth transitions for dark mode */
   body {
     @apply transition-colors duration-200;
     margin: 0;
