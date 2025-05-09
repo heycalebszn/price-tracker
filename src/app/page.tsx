@@ -36,9 +36,12 @@ export default function Home() {
     if (query.trim()) {
       search(query);
       setIsSearchMode(true);
-    } else {
-      setIsSearchMode(false);
     }
+  };
+  
+  // Add a reset search function
+  const resetSearch = () => {
+    setIsSearchMode(false);
   };
   
   // Handle sort changes
@@ -70,6 +73,23 @@ export default function Home() {
           <ErrorState message={searchError.message} />
         )}
         
+        {/* Add a back button when in search mode */}
+        {isSearchMode && !isSearching && (
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-sm text-gray-400">
+              {searchResults.length === 0 
+                ? 'No cryptocurrencies found matching your search.' 
+                : `Found ${searchResults.length} cryptocurrencies.`}
+            </div>
+            <button 
+              onClick={resetSearch}
+              className="text-sm text-blue-500 hover:text-blue-700"
+            >
+              ← Back to main list
+            </button>
+          </div>
+        )}
+        
         {/* Show sort controls only when not in search mode */}
         {!isSearchMode && (
           <SortControls 
@@ -87,15 +107,6 @@ export default function Home() {
           <ErrorState 
             message={error instanceof Error ? error.message : 'Failed to fetch data'} 
           />
-        )}
-        
-        {/* Search Results Count when in search mode */}
-        {isSearchMode && !isSearching && (
-          <div className="text-sm text-gray-400 mb-4">
-            {searchResults.length === 0 
-              ? 'No cryptocurrencies found matching your search.' 
-              : `Found ${searchResults.length} cryptocurrencies.`}
-          </div>
         )}
         
         {/* Crypto Grid */}

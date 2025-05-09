@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchCryptoDataFromCoinGecko, fetchCryptoDataFromAlternativeAPI, searchCryptoData } from '@/services/cryptoService';
 import { CryptoData } from '@/types/crypto';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import React from 'react';
 
 // Custom hook to fetch crypto data with auto-refresh
 export const useCryptoData = (sortBy?: string, sortDirection: 'asc' | 'desc' = 'desc') => {
@@ -52,27 +53,40 @@ export const useCryptoData = (sortBy?: string, sortDirection: 'asc' | 'desc' = '
 
 // Hook for searching crypto
 export const useSearchCrypto = () => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchResults, setSearchResults] = useState<CryptoData[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<Error | null>(null);
 
-  const search = async (query: string) => {
-    if (!query.trim()) {
-      setSearchResults([]);
-      return;
+  // Use React Query for search with caching
+  const { 
+    isLoading: isSearching,
+    data,
+    error
+  } = useQuery({
+    queryKey: ['cryptoSearch', searchTerm],
+    queryFn: () => searchTerm.trim() ? searchCryptoData(searchTerm) : Promise.resolve([]),
+    enabled: searchTerm.trim().length > 0,
+    staleTime: 60000, // Cache search results for 1 minute
+    refetchOnWindowFocus: false, // Don't refetch when window gets focus
+    retry: false, // Don't retry on failure
+  });
+  
+  // Update the search results when the query finishes
+  useEffect(() => {
+    if (data) {
+      setSearchResults(data);
     }
-
-    setIsSearching(true);
-    setSearchError(null);
-
-    try {
-      const results = await searchCryptoData(query);
-      setSearchResults(results);
-    } catch (error) {
+    
+    if (error) {
       setSearchError(error instanceof Error ? error : new Error('Search failed'));
-    } finally {
-      setIsSearching(false);
+    } else {
+      setSearchError(null);
     }
+  }, [data, error]);
+
+  // Function to update search term
+  const search = (query: string) => {
+    setSearchTerm(query);
   };
 
   return {
