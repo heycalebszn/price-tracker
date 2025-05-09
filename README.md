@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crypto Price Tracker
 
-## Getting Started
+A cryptocurrency price tracker built with Next.js, React Query, and Tailwind CSS. This application displays real-time price data for selected cryptocurrencies using the CoinGecko API.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Real-time tracking of BTC, ETH, SOL, MATIC, and DOGE cryptocurrency prices
+- Price change percentage highlighting (green for positive, red for negative)
+- Auto-refreshes data every 30 seconds using React Query
+- Search functionality to look up other cryptocurrencies
+- Sort options by name, price, and 24h change
+- Loading and error states with appropriate UI feedback
+- Responsive design for all device sizes
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js
+- **Data Fetching**: React Query (@tanstack/react-query)
+- **API Calls**: Axios
+- **Styling**: Tailwind CSS
+- **APIs**: CoinGecko API
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup Instructions
 
-## Learn More
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/crypto-price-tracker.git
+   cd crypto-price-tracker
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Run the development server:
+   ```
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/src/app`: Next.js app router pages
+- `/src/components`: Reusable UI components
+- `/src/services`: API service functions
+- `/src/hooks`: Custom React hooks for data fetching
+- `/src/types`: TypeScript type definitions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Implementation Details
+
+- Used React Query for efficient data fetching with automatic refetching
+- Implemented fallback API strategy for better reliability
+- Added debounced search for better performance
+- Created responsive UI with Tailwind CSS
+
+## Scaling to Handle 100+ Coins
+
+To scale this application to handle 100+ coins and multiple APIs, I would implement:
+
+1. **Pagination**: Add pagination to limit the number of coins displayed at once
+2. **Virtualization**: Implement a virtual list to render only visible items
+3. **Caching Strategy**: Enhance React Query's caching configuration
+4. **API Aggregation**: Create a backend service to aggregate data from multiple APIs
+5. **WebSockets**: Replace polling with WebSockets for real-time updates
+6. **Rate Limiting**: Implement request throttling to avoid API rate limits
+7. **Memoization**: Add memoization for expensive UI operations
+8. **Server-Side Rendering**: Use Next.js SSR for initial data loading
+
+## Future Improvements
+
+- Add price charts for historical data
+- Implement user favorites with local storage
+- Add more detailed coin information pages
+- Support additional currencies beyond USD
+- Add dark/light theme toggle
+
+## License
+
+MIT
