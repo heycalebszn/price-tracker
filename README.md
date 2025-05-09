@@ -59,14 +59,14 @@ A cryptocurrency price tracker built with Next.js, React Query, and Tailwind CSS
 
 To scale this application to handle 100+ coins and multiple APIs, I would implement:
 
-1. **Pagination**: Add pagination to limit the number of coins displayed at once
+1. **Pagination**: i will add pagination to limit the number of coins displayed at once
 2. **Virtualization**: Implement a virtual list to render only visible items
 3. **Caching Strategy**: Enhance React Query's caching configuration
 4. **API Aggregation**: Create a backend service to aggregate data from multiple APIs
 5. **WebSockets**: Replace polling with WebSockets for real-time updates
 6. **Rate Limiting**: Implement request throttling to avoid API rate limits
-7. **Memoization**: Add memoization for expensive UI operations
-8. **Server-Side Rendering**: Use Next.js SSR for initial data loading
+7. **Memoization**: i will add memoization for expensive UI operations
+8. **Server-Side Rendering**: i will use Next.js SSR for initial data loading
 
 ## Future Improvements
 

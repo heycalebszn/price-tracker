@@ -19,7 +19,7 @@ export default function SearchBar({ onSearch, isSearching }: SearchBarProps) {
   }, [query, onSearch]);
   
   return (
-    <div className="mb-6" style={{ position: 'relative', maxWidth: '500px', margin: '0 auto' }}>
+    <div style={{ position: 'relative', maxWidth: '500px', margin: '0 auto', marginBottom: '20px' }}>
       <input
         type="text"
         value={query}
