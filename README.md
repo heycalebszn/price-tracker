@@ -25,7 +25,7 @@ A cryptocurrency price tracker built with Next.js, React Query, and Tailwind CSS
 1. Clone the repository:
    ```
    git clone https://github.com/heycalebszn/price-tracker.git
-   cd crypto-price-tracker
+   cd price-tracker
    ```
 
 2. Install dependencies:
